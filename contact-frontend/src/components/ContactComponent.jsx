@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { createContact, getContact } from '../services/ContactService'
+import { createContact, getContact, updateContact } from '../services/ContactService'
 import { useNavigate, useParams } from 'react-router-dom'
 
 const ContactComponent = () => {
@@ -29,6 +29,32 @@ const ContactComponent = () => {
         }
     }, [id])
 
+    function saveOrUpdateContact(e){
+        e.preventDefault();
+
+        if(validateForm()){
+
+            const contact = {firstName, lastName, email}
+            console.log(contact)
+
+            if(id){
+                updateContact(id, contact).then((response) => {
+                    console.log(response.data);
+                    navigator("/contacts");
+                }).catch(error => {
+                    console.log(error);
+                })
+            } else {
+                createContact(contact).then((response) => {
+                    console.log(response.data);
+                    navigator('/contacts')
+                }).catch(error => {
+                    console.error(error);
+                })
+            }
+        }       
+    }
+
     function validateForm(){
         let valid = true;
         const errorsCopy = {... errors};
@@ -56,19 +82,6 @@ const ContactComponent = () => {
 
         setErrors(errorsCopy);
         return valid;
-    }
-
-    function saveContact(e){
-        e.preventDefault();
-
-        if(validateForm()){
-            const contact = {firstName, lastName, email}
-            console.log(contact)
-            createContact(contact).then((response) => {
-                console.log(response.data);
-                navigator('/contacts')
-            })
-        }       
     }
 
     function pageTitle(){
@@ -128,7 +141,7 @@ const ContactComponent = () => {
                                 {errors.email && <div className='invalid-feedback'> {errors.email} </div>}
                             </div>
 
-                            <button className='btn btn-success' onClick={saveContact}>Submit</button>
+                            <button className='btn btn-success' onClick={saveOrUpdateContact}>Submit</button>
                         </form>
                     </div>
                 </div>
