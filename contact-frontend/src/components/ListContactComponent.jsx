@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import { listContacts } from '../services/ContactService'
+import { deleteContact, listContacts } from '../services/ContactService'
 import { useNavigate } from "react-router-dom"
 
 const ListContactComponent = () => {
@@ -9,12 +9,16 @@ const ListContactComponent = () => {
     const navigator = useNavigate();
 
     useEffect(() => {
+        getAllContacts();
+    }, [])
+
+    function getAllContacts(){
         listContacts().then((response) => {
             setContacts(response.data);
         }).catch(error => {
             console.error(error);
         })
-    }, [])
+    }
 
     function addNewContact(){
             navigator("/add-contact");
@@ -22,6 +26,16 @@ const ListContactComponent = () => {
 
     function updateContact(id){
         navigator(`/edit-contact/${id}`);
+    }
+
+    function removeContact(id){
+        console.log(id);
+
+        deleteContact(id).then((response) => {
+            getAllContacts();
+        }).catch(error => {
+            console.log(error);
+        })
     }
 
     return (
@@ -48,6 +62,9 @@ const ListContactComponent = () => {
                                 <td>{contact.email}</td>
                                 <td>
                                     <button className='btn btn-info' onClick={() => updateContact(contact.id)}>Update</button>
+                                    <button className='btn btn-danger' onClick={() => removeContact(contact.id)}
+                                        style={{marginLeft: "10px"}}    
+                                    >Delete</button>
                                 </td>
                             </tr>
                         )
