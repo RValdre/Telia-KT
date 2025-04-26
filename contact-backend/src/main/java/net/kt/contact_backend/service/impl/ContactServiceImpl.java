@@ -10,6 +10,8 @@ import net.kt.contact_backend.service.ContactService;
 import org.springframework.stereotype.Service;
 
 import java.lang.module.ResolutionException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -31,5 +33,27 @@ public class ContactServiceImpl implements ContactService {
                 .orElseThrow(() ->
                         new ResourceNotFoundException("Contact not found by given id: " + contactId));
         return ContactMapper.mapToContactDto(contact);
+    }
+
+    @Override
+    public List<ContactDto> getAllContacts() {
+        List<Contact> contacts = contactRepository.findAll();
+        return contacts.stream().map((contact) -> ContactMapper.mapToContactDto(contact))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public ContactDto updateContact(Long contactId, ContactDto updatedContact) {
+
+        Contact contact = contactRepository.findById(contactId).orElseThrow(
+                () -> new ResourceNotFoundException("Contact does not exist with given id: " + contactId)
+        );
+
+        contact.setFirstName(updatedContact.getFirstName());
+        contact.setLastName(updatedContact.getLastName());
+        contact.setEmail(updatedContact.getEmail());
+
+        Contact updatedContactObj = contactRepository.save(contact);
+        return ContactMapper.mapToContactDto(updatedContactObj);
     }
 }
