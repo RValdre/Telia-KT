@@ -56,4 +56,14 @@ public class ContactServiceImpl implements ContactService {
         Contact updatedContactObj = contactRepository.save(contact);
         return ContactMapper.mapToContactDto(updatedContactObj);
     }
+
+    @Override
+    public void deleteContact(Long contactId) {
+
+        Contact contact = contactRepository.findById(contactId).orElseThrow(
+                () -> new ResourceNotFoundException("Contact does not exist with given id: " + contactId)
+        );
+
+         contactRepository.deleteById(contactId);
+    }
 }

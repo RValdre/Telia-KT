@@ -39,11 +39,18 @@ public class ContactController {
         return ResponseEntity.ok(contacts);
     }
 
-    // Build update contact REST API
+    // Build update Contact REST API
     @PutMapping("{id}")
     public ResponseEntity<ContactDto> updateContact(@PathVariable("id") Long contactId,
                                                     @RequestBody ContactDto updatedContact){
         ContactDto contactDto = contactService.updateContact(contactId, updatedContact);
         return ResponseEntity.ok(contactDto);
+    }
+
+    // Build delete Contact REST API
+    @DeleteMapping("{id}")
+    public ResponseEntity<String> deleteContact(@PathVariable("id") Long contactId){
+        contactService.deleteContact(contactId);
+        return ResponseEntity.ok("Contact deleted successfully");
     }
 }

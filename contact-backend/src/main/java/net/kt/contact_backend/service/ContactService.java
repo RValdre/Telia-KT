@@ -12,4 +12,6 @@ public interface ContactService {
     List<ContactDto> getAllContacts();
 
     ContactDto updateContact(Long contactId, ContactDto updatedContact);
+
+    void deleteContact(Long contactId);
 }
