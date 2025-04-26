@@ -5,7 +5,7 @@ const HeaderComponent = () => {
     <div>
         <header>
             <nav className='navbar navbar-dark bg-dark'>
-                <a className='navbar-brand'>Contact Management System</a>
+                <a className='navbar-brand' href='http://localhost:5173/contacts'>Contact Management System</a>
             </nav>
         </header>
     </div>
