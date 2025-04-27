@@ -6,7 +6,7 @@ Installation guide:
 
 2. Create Docker Mysql image and container with following commands:<br>
    2.1: Create mysql image with: docker pull MySQL<br>
-   2.2: Build Docker container for mysql: docker run -d -p 3308:3306 --name=mysql-docker --env="MYSQL_ROOT_PASSWORD=root" --env="MYSQL_PASSWORD=root" --env="MYSQL_DATABASE=contacts"mysql<br>
+   2.2: Build Docker container for mysql: docker run -d -p 3308:3306 --name=mysql-docker --env="MYSQL_ROOT_PASSWORD=root" --env="MYSQL_PASSWORD=root" --env="MYSQL_DATABASE=contacts" mysql<br>
 
 3. Open backend-folder with desired idea (use following commands)<br>
    3.1 Clean the project with: ./gradlew clean<br>
