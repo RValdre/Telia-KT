@@ -21,6 +21,6 @@ Frontend:<br>
    4.1 Run npm install<br>
    4.2 Run npm build<br>
    4.3 Create frontend docker image with: docker image build -t contact_frontend .<br>
-   4.4 Build frontend docker container with: docker run -it -p 5173:5173 -d {frontend docker image id}<br>
+   4.4 Build frontend docker container with: docker run -it -p 5173:5173 -d {contact_frontend image id}<br>
 
 If everything has been done correctly then the app should run on localhost:5173
